@@ -25,3 +25,4 @@ route::get('suppliers', 'SuppliersController@index');
 
 route::get('suppliers/{supplier}', 'SuppliersController@show');
 
+route::post('suppliers/{supplier}/items', 'ItemsController@store');

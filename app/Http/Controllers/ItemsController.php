@@ -8,7 +8,9 @@ use App\Http\Requests;
 
 use DB;
 
-use App\item;
+use App\Item;
+
+use App\Supplier;
 
 class ItemsController extends Controller
 {
@@ -23,6 +25,22 @@ class ItemsController extends Controller
 	public function show(Item $item){
 
 		return view('items.show', compact('item'));
+
+	}
+
+	public function  store(Request $request, Supplier $supplier){
+
+		$item = new Item;
+		$item->name = $request->name;
+		$item->price = $request->price;
+		$item->qty = $request->qty;
+
+		$supplier->items()->save($item);
+		// $item->supplier_id = $supplier->id;
+
+		// return $request->all();
+
+		return back();   // redirect to the last page
 
 	}
     //
