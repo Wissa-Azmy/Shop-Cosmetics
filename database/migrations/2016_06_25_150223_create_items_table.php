@@ -19,6 +19,8 @@ class CreateItemsTable extends Migration
             $table->string('name');
             $table->integer('price');
             $table->integer('qty');
+            $table->integer('supplier_discount');
+            $table->integer('consumer_discount');
             // $table->integer('commission');
 
             $table->timestamps();

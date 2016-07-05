@@ -60,6 +60,9 @@
                     <li  ><a href="/" class="">Home</a></li>
                     <li  ><a href="/items" class="">Items</a></li>
                     <li  ><a href="/suppliers" class="">Suppliers</a></li>
+                    <li  ><a href="/customers" class="">Customers</a></li>
+                    <li  ><a href="/invoices" class="">Invoices</a></li>
+
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown"><a href="#" data-toggle="dropdown">

@@ -13,6 +13,8 @@
 				<th>Title</th>
 				<th>Price</th>
 				<th>Quantity</th>
+				<th>Supplier</th>
+				<th>Action</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -22,6 +24,8 @@
 			<td>{{$item->name}}</td>
 			<td>{{$item->price}}</td>
 			<td>{{$item->qty}}</td>
+			<td>{{$item->supplier->name}}</td>
+			<td><a href="/items/{{$item->id}}/edit" class="btn btn-primary">Edit</a></td>
 		</tr>
 
 	@endforeach

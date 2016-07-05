@@ -25,5 +25,17 @@ class SuppliersController extends Controller
 		return view('suppliers.show', compact('supplier'));
 
 	}
-    //
+
+	public function store(Request $request){
+		$supplier = new Supplier;
+
+		$supplier->name = $request->name;
+		$supplier->phone = $request->phone;
+		$supplier->address = $request->address;
+
+		$supplier->save();
+
+		return back();
+
+	}
 }

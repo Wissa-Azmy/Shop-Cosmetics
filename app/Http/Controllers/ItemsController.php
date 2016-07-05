@@ -43,5 +43,15 @@ class ItemsController extends Controller
 		return back();   // redirect to the last page
 
 	}
-    //
+
+	public function edit(Item $item){
+
+		return view('items.edit', compact('item'));
+
+	}
+
+    public function update(Request $request, Item $item){
+    	$item->update($request->all());
+    	return back();
+    }
 }

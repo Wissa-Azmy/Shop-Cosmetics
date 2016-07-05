@@ -11,5 +11,9 @@ class Item extends Model
 	public function supplier(){
 		return $this->belongsTo(Supplier::class);
 	}
-    //
+    
+
+    public function invoices(){
+    	return $this->belongsToMany(Invoice::class);
+    }
 }
