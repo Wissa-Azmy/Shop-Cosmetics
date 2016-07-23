@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.app')
 
 
 @section('content')
@@ -8,7 +8,7 @@
 <h3>Add a New Customer</h3>
 
 		<form method="POST" action="/customers">
-			<input type="hidden" name="_token" value="{{ csrf_token() }}">
+			{{ csrf_field() }}
 			<div class="form-group">
 				<input type="text" name="name" placeholder="Name" class="form-control">
 				<input type="text" name="phone" placeholder="Phone" class="form-control">

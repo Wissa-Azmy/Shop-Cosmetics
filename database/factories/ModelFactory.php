@@ -10,6 +10,7 @@
 | database. Just tell the factory how a default model should look.
 |
 */
+factory(App\Item::class, 10)->create();
 
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [

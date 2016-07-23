@@ -12,8 +12,11 @@ class Item extends Model
 		return $this->belongsTo(Supplier::class);
 	}
     
-
     public function invoices(){
     	return $this->belongsToMany(Invoice::class);
+    }
+
+    public function user(){
+    	return $this->belongsTo(User::class);
     }
 }

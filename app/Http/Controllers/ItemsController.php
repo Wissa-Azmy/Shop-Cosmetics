@@ -30,8 +30,13 @@ class ItemsController extends Controller
 
 	public function  store(Request $request, Supplier $supplier){
 
+		$this->validate($request, [
+			'name' => 'required'
+		]);
+
 		$item = new Item;
 		$item->name = $request->name;
+		$item->user_id = 1;
 		$item->price = $request->price;
 		$item->qty = $request->qty;
 
@@ -54,4 +59,9 @@ class ItemsController extends Controller
     	$item->update($request->all());
     	return back();
     }
+
+	public function delete(Item $item){
+		$item->delete();
+		return back();
+	}
 }

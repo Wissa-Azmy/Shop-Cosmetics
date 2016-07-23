@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.app')
 
 
 @section('content')
@@ -10,7 +10,7 @@
 		<h3>Add a New Invoice</h3>
 
 		<form method="POST" action="/customers/{{ $customer->id }}/invoices">
-			<input type="hidden" name="_token" value="{{ csrf_token() }}">
+			{{ csrf_field() }}
 			<div class="form-group">
 				<input type="text" name="name" placeholder="invoice Name" class="form-control">
 				<input type="text" name="price" placeholder="Price" class="form-control">

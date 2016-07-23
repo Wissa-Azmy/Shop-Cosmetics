@@ -1,11 +1,11 @@
-@extends('layout')
+@extends('layouts.app')
 
 @section('content')
 
 <form method="POST" action="/invoices/{{$invoice->id}}">
 {{method_field('PATCH')}}
 
-<input type="hidden" name="_token" value="{{ csrf_token() }}">
+	{{ csrf_field() }}
 
 <div class="form-group">
  	<input type="text" name="name" value="{{$invoice->name}}" class="form-control">

@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.app')
 
 
 @section('content')
@@ -9,7 +9,6 @@
 		@foreach ($invoice->items as $item)
 				
 			<li>{{$item->name}}</li>
-
 			
 		@endforeach
 		</ul>

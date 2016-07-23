@@ -56,14 +56,22 @@
                 <div class="navbar-brand">Shenouda Cosmetics</div>
             </div>
             <div class="collapse navbar-collapse">
+
                 <ul class="nav navbar-nav">
                     <li  ><a href="/" class="">Home</a></li>
                     <li  ><a href="/items" class="">Items</a></li>
                     <li  ><a href="/suppliers" class="">Suppliers</a></li>
                     <li  ><a href="/customers" class="">Customers</a></li>
                     <li  ><a href="/invoices" class="">Invoices</a></li>
-
                 </ul>
+
+                <form class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown"><a href="#" data-toggle="dropdown">
                         <span class="caret"></span></a>
@@ -73,6 +81,7 @@
                         </ul>
                     </li>
                 </ul>
+
             </div>
         </div>
     </nav>

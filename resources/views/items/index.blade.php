@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.app')
 
 @section('content')
 
@@ -14,6 +14,7 @@
 				<th>Price</th>
 				<th>Quantity</th>
 				<th>Supplier</th>
+				<th>Added By</th>
 				<th>Action</th>
 			</tr>
 		</thead>
@@ -25,7 +26,22 @@
 			<td>{{$item->price}}</td>
 			<td>{{$item->qty}}</td>
 			<td>{{$item->supplier->name}}</td>
-			<td><a href="/items/{{$item->id}}/edit" class="btn btn-primary">Edit</a></td>
+			<td>{{$item->user->name}}</td>
+			<td>
+				{{--</div>--}}
+
+				<form action="/items/{{$item->id}}" method="post">
+					{{method_field('DELETE')}}
+					{{csrf_field()}}
+					<div class="btn-group" role="group" aria-label="...">
+						<a href="/items/{{$item->id}}/edit" class="btn btn-primary">Edit</a>
+
+						<button type="submit" class="btn btn-danger">Delete</button>
+					</div>
+
+				</form>
+
+			</td>
 		</tr>
 
 	@endforeach

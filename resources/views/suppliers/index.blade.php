@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.app')
 
 
 @section('content')
@@ -22,7 +22,7 @@
 		</form>
 
 			<hr>
-			
+
 <h1><b>All Suppliers</b></h1>
 
 	<table class="table">

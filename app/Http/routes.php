@@ -11,50 +11,57 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-route::get('about', 'PagesController@home');
+	Route::get('/', function () {return view('welcome');});
 
-/***********************************/
+	route::get('about', 'PagesController@home');
 
-route::get('items', 'ItemsController@index');
+	/***********************************/
 
-route::get('items/{item}', 'ItemsController@show');
+	route::get('items', 'ItemsController@index')->middleware('auth');
 
-route::get('items/{item}/edit', 'ItemsController@edit');
+	route::get('items/{item}', 'ItemsController@show')->middleware('auth');
 
-route::patch('items/{item}', 'ItemsController@update');
+	route::get('items/{item}/edit', 'ItemsController@edit')->middleware('auth');
 
-/***********************************/
+	route::patch('items/{item}', 'ItemsController@update')->middleware('auth');
 
-route::get('invoices', 'InvoicesController@index');
+	route::delete('items/{item}', 'ItemsController@delete')->middleware('auth');
 
-route::get('invoices/{invoice}', 'InvoicesController@show');
+	/***********************************/
 
-route::get('invoices/{invoice}/edit', 'InvoicesController@edit');
+	route::get('invoices', 'InvoicesController@index')->middleware('auth');
 
-route::patch('invoices/{invoice}', 'InvoicesController@update');
+	route::get('invoices/{invoice}', 'InvoicesController@show')->middleware('auth');
 
-/***********************************/
+	route::get('invoices/{invoice}/edit', 'InvoicesController@edit')->middleware('auth');
 
-route::get('suppliers', 'SuppliersController@index');
+	route::patch('invoices/{invoice}', 'InvoicesController@update')->middleware('auth');
 
-route::get('suppliers/{supplier}', 'SuppliersController@show');
+	/***********************************/
 
-route::post('suppliers/{supplier}/items', 'ItemsController@store');
+	route::get('suppliers', 'SuppliersController@index')->middleware('auth');
 
-route::post('suppliers', 'SuppliersController@store');
+	route::get('suppliers/{supplier}', 'SuppliersController@show')->middleware('auth');
 
-/***********************************/
+	route::post('suppliers/{supplier}/items', 'ItemsController@store')->middleware('auth');
 
-route::get('customers', 'CustomersController@index');
+	route::post('suppliers', 'SuppliersController@store')->middleware('auth');
 
-route::get('customers/{customer}', 'CustomersController@show');
+	/***********************************/
 
-route::post('customers/{customer}/invoices', 'InvoicesController@store');
+	route::get('customers', 'CustomersController@index')->middleware('auth');
 
-route::post('customers', 'CustomersController@store');
+	route::get('customers/{customer}', 'CustomersController@show')->middleware('auth');
+
+	route::post('customers/{customer}/invoices', 'InvoicesController@store')->middleware('auth');
+
+	route::post('customers', 'CustomersController@store')->middleware('auth');
+
+
+	Route::auth();
+
+	Route::get('/home', 'HomeController@index');
+
 
 
