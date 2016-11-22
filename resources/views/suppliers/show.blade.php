@@ -6,26 +6,64 @@
 <div class="row">
 	<div class="col-md-6 col-md-offset-3">
 
-	<h3>Add a New Item</h3>
+	            <div class="modal-content panel panel-default">
+                <div class="modal-header">
+                    <h3 class="modal-title">Add a New Purchase</h3>
+                </div>
 
-		<form method="POST" action="/suppliers/{{ $supplier->id }}/items">
-			<input type="hidden" name="_token" value="{{ csrf_token() }}">
-			<div class="form-group">
+                <div class="modal-body">
+                    <form method="post" action="/orders">
+                        {{ csrf_field() }}
 
-				<input type="text" name="name" placeholder="Item Name" class="form-control">
-				<input type="text" name="price" placeholder="Price" class="form-control" value="{{ old('price') }}">
-				<input type="text" name="qty" placeholder="Quantity" class="form-control">
-				<input type="text" name="consumer_discount" placeholder="Consumer Discount" class="form-control">
-				<input type="text" name="supplier_discount" placeholder="Supplier Discount" class="form-control">
+                        <div class="row">
+                            <div class="col-xs-6">
 
-			</div>
+                            <div class="form-group">
+                                <select name="customer" class="form-control">
+                                    <option value="0">Customer</option>
 
-			<div class="form-group">
-				<button type="submit" class="btn btn-primary">Add Item</button>
-			</div>
-		</form>
+                                   {{--  @foreach ($customers as $customer)
+                                        <option value="{{$customer->id}}">{{$customer->name}}</option>
+                                    @endforeach --}}
+                                </select>
+                            </div>
 
-		{{ var_dump($errors) }}
+                            </div>{{--col-xs-6--}}
+
+
+                            <div class="col-xs-6">
+                            <div class="form-group">
+                                <textarea class="" name="notes" style="width: 100%;" rows="6" placeholder="Add your Notes here..."></textarea>
+                            </div>
+                        </div>{{--col-xs-6--}}
+                        <div class="col-md-12">
+							<div class="form-group form-inline item-add">
+                                <input type="text" class="form-control" style="width: 45%;" name="item" placeholder="Item" id="item">
+                           
+                                <input type="text" class="form-control" style="width: 15%;" name="quantity" placeholder="Quantity" id="qty">
+
+                                <input type="text" class="form-control" style="width: 15%;" name="price" placeholder="Price" id="price">
+                                <input type="text" class="form-control" style="width: 19%;" name="total" readonly="readonly" placeholder="Total" id="total">&nbsp&nbsp&nbsp&nbsp
+                                <a href="#"><span class="glyphicon glyphicon-remove btn-remove" style="color: red;"></span></a>
+                            </div>
+						<a href="#" class="btn btn-xs btn-info" id="add-more-items">Add More</a>
+
+                        </div>
+
+                        </div> {{--row--}}
+
+                        <div class="modal-footer">
+                            <input type="submit" value="Add Purchase" class="btn btn-primary">
+                        </div>
+
+                    </form>
+                </div> {{--modal body--}}
+
+
+            </div> {{--Modal content--}}
+
+
+
 		@if (count($errors))
 			<ul>
 				@foreach ($errors->all() as $error)
@@ -65,6 +103,32 @@
 	</table>
 
 		
-	</div>
-</div>
+	</div> {{-- col-md-6 --}}
+</div> {{-- The First Row --}}
+
+@stop
+
+@section('script')
+<script type="text/javascript">
+	
+	var template = '<div class="form-group form-inline item-add">'+
+                                '<input type="text" class="form-control" style="width: 45%;" name="item" placeholder="Item" id="item"> '+
+                           
+                                '<input type="text" class="form-control" style="width: 15%;" name="quantity" placeholder="Quantity" id="qty"> '+
+
+                                '<input type="text" class="form-control" style="width: 15%;" name="price" placeholder="Price" id="price"> '+
+                                '<input type="text" class="form-control" style="width: 19%;" name="total" readonly="readonly" placeholder="Total" id="total"> &nbsp&nbsp&nbsp&nbsp'+
+                                '<a href="#"><span class="glyphicon glyphicon-remove btn-remove" style="color: red;"></span></a>'+
+                            '</div>'
+
+    $('#add-more-items').on('click',function(e) {
+    		e.preventDefault();
+    		$(this).before(template);
+    })
+
+    $(document).on('click','.btn-remove', function(e){
+    	e.preventDefault();
+    	$(this).parents('.item-add').remove();
+    })
+</script>
 @stop
