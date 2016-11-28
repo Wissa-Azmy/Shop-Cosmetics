@@ -1,32 +1,33 @@
 @extends('layouts.app')
 
 
+
 @section('content')
+
+<style type="text/css">
+    .input {display: block; padding: 0; margin: 0; border: 0; width: 100%;}
+    /*.td {margin: 0; padding: 0;}*/
+</style>
 
 <div class="row">
 	<div class="col-md-6 col-md-offset-3">
 
-	            <div class="modal-content panel panel-default">
+<div class="modal-content panel panel-default">
                 <div class="modal-header">
                     <h3 class="modal-title">Add a New Purchase</h3>
                 </div>
 
                 <div class="modal-body">
-                    <form method="post" action="/orders">
+                    <form method="post" action="#">
                         {{ csrf_field() }}
 
                         <div class="row">
                             <div class="col-xs-6">
 
-                            <div class="form-group">
-                                <select name="customer" class="form-control">
-                                    <option value="0">Customer</option>
-
-                                   {{--  @foreach ($customers as $customer)
-                                        <option value="{{$customer->id}}">{{$customer->name}}</option>
-                                    @endforeach --}}
-                                </select>
-                            </div>
+                                
+                                <div class="form-group">
+                                    <input type="Date" name="invoice-date">
+                                </div>
 
                             </div>{{--col-xs-6--}}
 
@@ -37,30 +38,79 @@
                             </div>
                         </div>{{--col-xs-6--}}
                         <div class="col-md-12">
-							<div class="form-group form-inline item-add">
-                                <input type="text" class="form-control" style="width: 45%;" name="item" placeholder="Item" id="item">
-                           
-                                <input type="text" class="form-control" style="width: 15%;" name="quantity" placeholder="Quantity" id="qty">
 
-                                <input type="text" class="form-control" style="width: 15%;" name="price" placeholder="Price" id="price">
-                                <input type="text" class="form-control" style="width: 19%;" name="total" readonly="readonly" placeholder="Total" id="total">&nbsp&nbsp&nbsp&nbsp
-                                <a href="#"><span class="glyphicon glyphicon-remove btn-remove" style="color: red;"></span></a>
-                            </div>
-						<a href="#" class="btn btn-xs btn-info" id="add-more-items">Add More</a>
+                        <table class="table">
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Discount</th>
+                <th>Total</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
 
-                        </div>
+        <tr>
+            <td style="width: 35%; margin: 0; padding: 0;"><input type="text" class="form-control input" name="item" id="item"></td>
+            <td style="margin: 0; padding: 0;"><input type="text" class="form-control input" name="quantity" id="qty"></td>
+            <td style="margin: 0; padding: 0;"><input type="text" class="form-control input" name="price" id="price"></td>
+            <td style="margin: 0; padding: 0;"><input type="text" class="form-control input" name="discount" id="discount"></td>
+            <td style="margin: 0; padding: 0;"><input type="text" class="form-control input" name="total" readonly="readonly" id="total"></td>
+            {{-- <td><a href="#"><span class="glyphicon glyphicon-remove btn-remove" style="color: red;"></span></a></td> --}}
+            <td><a href="#"><span class="glyphicon glyphicon-plus add-more-items" style="color: green;"></span></a></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Sub Total</td>
+            <td style="margin: 0; padding: 0;"><input type="text" class="form-control input" name="subtotal" readonly="readonly" id="subtotal"></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Discount</td>
+            <td style="margin: 0; padding: 0;"><input type="text" class="form-control input" name="totalDiscount" readonly="readonly" id="totalDiscount"></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Grand Total</td>
+            <td style="margin: 0; padding: 0;"><input type="text" class="form-control input" name="grandTotal" readonly="readonly" id="grandTotal"></td>
+            <td></td>
+        </tr>
 
-                        </div> {{--row--}}
+        </tbody>
 
-                        <div class="modal-footer">
-                            <input type="submit" value="Add Purchase" class="btn btn-primary">
-                        </div>
+    </table>
+                            
+</div>
+
+</div> {{--row--}}
+
+        <div class="modal-footer">
+            <input type="submit" value="Add Purchase" class="btn btn-primary">
+        </div>
 
                     </form>
+
                 </div> {{--modal body--}}
 
-
-            </div> {{--Modal content--}}
+</div> {{--Modal content--}}
 
 
 
@@ -111,24 +161,25 @@
 @section('script')
 <script type="text/javascript">
 	
-	var template = '<div class="form-group form-inline item-add">'+
-                                '<input type="text" class="form-control" style="width: 45%;" name="item" placeholder="Item" id="item"> '+
-                           
-                                '<input type="text" class="form-control" style="width: 15%;" name="quantity" placeholder="Quantity" id="qty"> '+
+	var template = '<tr>'+
+                        '<td style="margin: 0; padding: 0;"><input type="text" class="form-control input" name="item" id="item"></td>'+
+                        '<td style="margin: 0; padding: 0;"><input type="text" class="form-control input qty" name="quantity" id="qty"></td>'+
+                        '<td style="margin: 0; padding: 0;"><input type="text" class="form-control input price" name="price" id="price"></td>'+
+                        '<td style="margin: 0; padding: 0;"><input type="text" class="form-control input" name="discount" id="discount"></td>'+
+                        '<td style="margin: 0; padding: 0;"><input type="text" class="form-control input total" name="total" readonly="readonly" id="total"></td>'+
+                        '<td><a href="#"><span class="glyphicon glyphicon-remove btn-remove" style="color: red;"></span></a></td>'+
+                        // '<td><a href="#"><span class="glyphicon glyphicon-plus add-more-items" style="color: green;"></span></a></td>'+
+                    '</tr>'
 
-                                '<input type="text" class="form-control" style="width: 15%;" name="price" placeholder="Price" id="price"> '+
-                                '<input type="text" class="form-control" style="width: 19%;" name="total" readonly="readonly" placeholder="Total" id="total"> &nbsp&nbsp&nbsp&nbsp'+
-                                '<a href="#"><span class="glyphicon glyphicon-remove btn-remove" style="color: red;"></span></a>'+
-                            '</div>'
-
-    $('#add-more-items').on('click',function(e) {
-    		e.preventDefault();
-    		$(this).before(template);
+    // $('.add-more-items').on('click',function(e) {
+    $(document).on('click','.add-more-items', function(e){
+        e.preventDefault();
+        $(this).parents('tr').before(template);
     })
 
     $(document).on('click','.btn-remove', function(e){
-    	e.preventDefault();
-    	$(this).parents('.item-add').remove();
+        e.preventDefault();
+        $(this).parents('tr').remove();
     })
 </script>
 @stop
