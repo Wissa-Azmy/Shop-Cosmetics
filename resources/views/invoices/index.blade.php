@@ -45,7 +45,7 @@
                         </div>{{--col-xs-6--}}
                         <div class="col-md-12">
 
-                        <table class="table">
+                        <table class="table" id="myTable">
 		<thead>
 			<tr>
 				<th>Item</th>
@@ -58,12 +58,12 @@
 		</thead>
 		<tbody>
 
-		<tr>
+		<tr class="input-row">
 			<td style="width: 35%; margin: 0; padding: 0;"><input type="text" class="form-control input" name="item" id="item"></td>
-			<td style="margin: 0; padding: 0;"><input type="text" class="form-control input" name="quantity" id="qty"></td>
-			<td style="margin: 0; padding: 0;"><input type="text" class="form-control input" name="price" id="price"></td>
-			<td style="margin: 0; padding: 0;"><input type="text" class="form-control input" name="discount" id="discount"></td>
-			<td style="margin: 0; padding: 0;"><input type="text" class="form-control input" name="total" readonly="readonly" id="total"></td>
+			<td style="margin: 0; padding: 0;"><input type="text" class="form-control input qty" name="quantity" id="qty"></td>
+			<td style="margin: 0; padding: 0;"><input type="text" class="form-control input price" name="price" id="price"></td>
+			<td style="margin: 0; padding: 0;"><input type="text" class="form-control input discount" name="discount" id="discount"></td>
+			<td style="margin: 0; padding: 0;"><input type="text" class="form-control input amount" name="total" readonly="readonly" id="total"></td>
 			{{-- <td><a href="#"><span class="glyphicon glyphicon-remove btn-remove" style="color: red;"></span></a></td> --}}
 			<td><a href="#"><span class="glyphicon glyphicon-plus add-more-items" style="color: green;"></span></a></td>
 		</tr>
@@ -80,7 +80,7 @@
 			<td></td>
 			<td></td>
 			<td>Sub Total</td>
-			<td style="margin: 0; padding: 0;"><input type="text" class="form-control input" name="subtotal" readonly="readonly" id="subtotal"></td>
+			<td style="margin: 0; padding: 0;"><input type="text" class="form-control input subtotal" name="subtotal" readonly="readonly" id="subtotal"></td>
 			<td></td>
 		</tr>
 		<tr>
@@ -95,7 +95,7 @@
 			<td></td>
 			<td></td>
 			<td></td>
-			<td>Grand Total</td>
+			<td>G. Total</td>
 			<td style="margin: 0; padding: 0;"><input type="text" class="form-control input" name="grandTotal" readonly="readonly" id="grandTotal"></td>
 			<td></td>
 		</tr>
@@ -156,12 +156,12 @@
 @section('script')
 <script type="text/javascript">
 	
-	var template = '<tr>'+
+	var template = '<tr class="input-row">'+
                         '<td style="margin: 0; padding: 0;"><input type="text" class="form-control input" name="item" id="item"></td>'+
                         '<td style="margin: 0; padding: 0;"><input type="text" class="form-control input qty" name="quantity" id="qty"></td>'+
                         '<td style="margin: 0; padding: 0;"><input type="text" class="form-control input price" name="price" id="price"></td>'+
-                        '<td style="margin: 0; padding: 0;"><input type="text" class="form-control input" name="discount" id="discount"></td>'+
-                        '<td style="margin: 0; padding: 0;"><input type="text" class="form-control input total" name="total" readonly="readonly" id="total"></td>'+
+                        '<td style="margin: 0; padding: 0;"><input type="text" class="form-control input discount" name="discount" id="discount"></td>'+
+                        '<td style="margin: 0; padding: 0;"><input type="text" class="form-control input amount" name="total" readonly="readonly" id="total"></td>'+
                         '<td><a href="#"><span class="glyphicon glyphicon-remove btn-remove" style="color: red;"></span></a></td>'+
 						// '<td><a href="#"><span class="glyphicon glyphicon-plus add-more-items" style="color: green;"></span></a></td>'+
                     '</tr>'
@@ -190,21 +190,55 @@
     //     total.val(quantity * netPrice);
     // });
 
-    var input = $('.qty, .price'),
-    	// qty = $('.qty'),
-    	// price = $('.price'),
-    	// total = $('.total'),
-    	subtotal = $('#subtotal'),
-    	discount = $('#discount'),
-    	grandtotal = $('#grandtotal');
+    // var input = $('.qty, .price'),
+    // 	// qty = $('.qty'),
+    // 	// price = $('.price'),
+    // 	// total = $('.total'),
+    // 	subtotal = $('#subtotal'),
+    // 	discount = $('#discount'),
+    // 	grandtotal = $('#grandtotal');
     	
-    input.change(function(){
-    	var qtyValue = $(this).parents('tr').children('.qty').val();
-    	var quantity = (isNaN(parseFloat(qtyValue))) ? 0 : parseFloat(qtyValue);
-    	console.log('changed');
-    	console.log(qtyValue);
+    // input.change(function(){
+    // 	var qtyValue = $(this).parents('tr').children('.qty').val();
+    // 	var quantity = (isNaN(parseFloat(qtyValue))) ? 0 : parseFloat(qtyValue);
+    // 	console.log('changed');
+    // 	console.log(qtyValue);
 
-    })	
+    // })	
+
+
+    function update_amounts()
+{
+    var sum = 0.0;
+
+
+    $('#myTable > tbody  > tr.input-row').each(function() {
+    	
+        var qty = $(this).find('.qty').val(),
+        // console.log("qty = " + qty);
+        price = $(this).find('.price').val(),
+        // console.log("price = " + price);
+        discount = $(this).find('.discount').val(),
+
+        unit = (100 - discount) / 100;
+        amount = (qty*price) * unit;
+        // console.log("amount = " + amount);
+        sum+=amount;
+        $(this).find('.amount').val(amount);
+        // console.log(amount);
+        $('#subtotal').val(sum);
+    });
+    //just update the total to sum  
+
+    
+}
+
+$(document).on('change', '.input', function() {
+	// console.log("change");
+    update_amounts();
+    // console.log(sum);
+
+});
 
 </script>
 @stop
