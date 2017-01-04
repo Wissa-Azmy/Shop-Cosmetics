@@ -64,8 +64,8 @@
 			<td style="margin: 0; padding: 0;"><input type="text" class="form-control input price" name="price" id="price"></td>
 			<td style="margin: 0; padding: 0;"><input type="text" class="form-control input discount" name="discount" id="discount"></td>
 			<td style="margin: 0; padding: 0;"><input type="text" class="form-control input amount" name="total" readonly="readonly" id="total"></td>
-			{{-- <td><a href="#"><span class="glyphicon glyphicon-remove btn-remove" style="color: red;"></span></a></td> --}}
-			<td><a href="#"><span class="glyphicon glyphicon-plus add-more-items" style="color: green;"></span></a></td>
+			
+			{{-- <td align="center"><a href="#"><span class="glyphicon glyphicon-remove btn-reset" style="color: red;"></span></a></td> --}}
 		</tr>
 		<tr>
 			<td></td>
@@ -73,7 +73,7 @@
 			<td></td>
 			<td></td>
 			<td></td>
-			<td></td>
+			<td align="center"><a href="#"><span class="glyphicon glyphicon-plus add-more-items" style="color: green;"></span></a></td>
 		</tr>
 		<tr>
 			<td></td>
@@ -109,6 +109,7 @@
                         </div> {{--row--}}
 
                         <div class="modal-footer">
+                            <input type="button" value="Cancel" class="btn btn-danger form-reset">
                             <input type="submit" value="Add Invoice" class="btn btn-primary">
                         </div>
 
@@ -162,11 +163,10 @@
                         '<td style="margin: 0; padding: 0;"><input type="text" class="form-control input price" name="price" id="price"></td>'+
                         '<td style="margin: 0; padding: 0;"><input type="text" class="form-control input discount" name="discount" id="discount"></td>'+
                         '<td style="margin: 0; padding: 0;"><input type="text" class="form-control input amount" name="total" readonly="readonly" id="total"></td>'+
-                        '<td><a href="#"><span class="glyphicon glyphicon-remove btn-remove" style="color: red;"></span></a></td>'+
-						// '<td><a href="#"><span class="glyphicon glyphicon-plus add-more-items" style="color: green;"></span></a></td>'+
+                        '<td align="center"><a href="#"><span class="glyphicon glyphicon-remove btn-remove" style="color: red;"></span></a></td>'+
                     '</tr>'
 
-    // $('.add-more-items').on('click',function(e) {
+    // $('.add-more-items').on('click',function(e) // DOESN'T WITH MULTIBLE CLASSES ACROSS THE DOCUMENT
     $(document).on('click','.add-more-items', function(e){
     	e.preventDefault();
     	$(this).parents('tr').before(template);
@@ -177,67 +177,48 @@
     	$(this).parents('tr').remove();
     })
 
-    // var input = $('#qty,#price,#expenses'),
-    //     qty = $('#qty'),
-    //     price = $('#price'),
-    //     expenses = $('#expenses'),
-    //     total = $('#total');
-    // input.change(function () {
-    //     var quantity = (isNaN(parseFloat(qty.val()))) ? 0 : parseFloat(qty.val());
-    //     var val2 = (isNaN(parseFloat(price.val()))) ? 0 : parseFloat(price.val());
-    //     var val3 = (isNaN(parseFloat(expenses.val()))) ? 0 : parseFloat(expenses.val());
-    //     var netPrice = val2 + val3;
-    //     total.val(quantity * netPrice);
-    // });
+/* RESET THE CELLS OF THE FIRST ITEM ROW */
+    $(".btn-reset").click(function() {
+    	$(this).closest('tr').find("input[type=text], textarea").val("");
+	});
 
-    // var input = $('.qty, .price'),
-    // 	// qty = $('.qty'),
-    // 	// price = $('.price'),
-    // 	// total = $('.total'),
-    // 	subtotal = $('#subtotal'),
-    // 	discount = $('#discount'),
-    // 	grandtotal = $('#grandtotal');
+	$(".form-reset").click(function() {
+    	$(this).closest('form').find("input[type=text], textarea, input[type=Date]").val("");
+	});
+
     	
     // input.change(function(){
     // 	var qtyValue = $(this).parents('tr').children('.qty').val();
     // 	var quantity = (isNaN(parseFloat(qtyValue))) ? 0 : parseFloat(qtyValue);
-    // 	console.log('changed');
-    // 	console.log(qtyValue);
 
-    // })	
 
+
+/* FORM CALCULATION */
 
     function update_amounts()
 {
     var sum = 0.0;
 
-
     $('#myTable > tbody  > tr.input-row').each(function() {
     	
         var qty = $(this).find('.qty').val(),
-        // console.log("qty = " + qty);
+        
         price = $(this).find('.price').val(),
-        // console.log("price = " + price);
+        
         discount = $(this).find('.discount').val(),
 
         unit = (100 - discount) / 100;
         amount = (qty*price) * unit;
-        // console.log("amount = " + amount);
+        
         sum+=amount;
         $(this).find('.amount').val(amount);
-        // console.log(amount);
+    //just update the subtotal to sum          
         $('#subtotal').val(sum);
-    });
-    //just update the total to sum  
-
-    
+    }); 
 }
 
 $(document).on('change', '.input', function() {
-	// console.log("change");
     update_amounts();
-    // console.log(sum);
-
 });
 
 </script>

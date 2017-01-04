@@ -17,6 +17,7 @@ class CreateInvoiceItemTable extends Migration
             $table->integer('item_id')->unsigned()->index();
             $table->integer('invoice_id')->unsigned()->index();
             $table->integer('qty');
+            $table->integer('discount');
             $table->timestamps();
         });
     }

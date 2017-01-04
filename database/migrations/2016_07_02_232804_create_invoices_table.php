@@ -16,10 +16,12 @@ class CreateInvoicesTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned()->index();
             $table->integer('customer_id')->index()->unsigned();
-            // $table->integer('item_id')->unsigned()->index();
-            $table->integer('quantity');
-            $table->integer('unit_price');
+            $table->text('notes');
+            $table->integer('items_count');
+            $table->float('subtotal', 8, 3);
             $table->integer('discount');
+            $table->float('grandtotal', 8, 3);
+
             $table->timestamps();
         });
     }
